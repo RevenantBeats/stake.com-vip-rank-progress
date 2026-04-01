@@ -1,0 +1,6 @@
+{
+    "search.exclude": {
+        "\"https://stake.com/*\",": true
+    },
+    "search.useGlobalIgnoreFiles": true
+}
