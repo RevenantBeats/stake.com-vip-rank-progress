@@ -119,3 +119,32 @@ progressBarObserver.observe(document.body, {
     childList: true,
     subtree: true
 });
+
+/**
+ * Automatically claims VIP reloads by clicking the "Claim Reload" button
+ */
+function startAutoClaim() {
+    console.log('[AUTO-CLAIM] Starting automatic reload claim feature');
+    
+    // Click buttons containing "Claim Reload" text every 5 seconds
+    const clickInterval = setInterval(function() {
+        const buttons = document.querySelectorAll('button');
+        for (const button of buttons) {
+            if (button.innerText.includes('Claim Reload')) {
+                button.click();
+                console.log('[AUTO-CLAIM] Clicked "Claim Reload" button');
+                break;
+            }
+        }
+    }, 5000);
+    
+    // Store interval ID for potential cleanup
+    window.autoClaimInterval = clickInterval;
+}
+
+// Check storage for auto-claim preference and start if enabled
+chrome.storage.sync.get('autoClaimEnabled', function(data) {
+    if (data.autoClaimEnabled) {
+        startAutoClaim();
+    }
+});
